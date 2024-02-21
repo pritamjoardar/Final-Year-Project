@@ -1,0 +1,22 @@
+1. Login Page incomplete.
+
+2. Announcement section in home page - showing news of competative exams & interviews - data fetched from a collection manually updated by us. 
+
+3. Each note document when saving will have a mandatory subject field which can be used to categorize/filter the notes. 
+
+4. User can download any note with public access.
+
+5. Any user can chat inside a note with public access, it will be visible to other users viewing the same public note.
+
+6. A user can directly message another user for a private chat.
+
+7. Any pdf can be uploaded as a new note by an user with either private or public access.
+
+8. Uploaded notes can be viewed, deleted & shared by a link.
+
+9. A user will be able to choose a goal/note subject during account creation, recommendations will be shown in home page according to their chosen goal 
+
+10. A user can update/change their goal in their profile.
+
+12. Technical point: A pdf parsing module is needed to view the pdf after uploading.
+
