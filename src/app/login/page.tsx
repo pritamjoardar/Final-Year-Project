@@ -1,18 +1,58 @@
-import React from 'react'
+"use client"
+import React, { useContext, useState } from 'react';
+import userContext from '@/context/UserContext';
 import "../style/shadow.scss" ;
 import Link from 'next/link';
-
+import axios from 'axios';
+import { Toaster, toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 const Page = () => {
+  const { setUser } = useContext(userContext);
+  const router = useRouter();
+  const [email,setEmail] = useState<string>('')
+  const [password,setPassword] = useState<string|number>()
+  const UserLogin = async (e: any) => {
+    
+    try {
+      e.preventDefault();
+     
+        await axios.post('../api/users/login', {email, password},
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+              'content-type': 'application/json; charset=utf-8'
+            }
+          }).then((res) => {
+            if (res.status === 201) {
+              setUser(true);
+              toast.success("Login successfully");
+              router.push('/');
+            }
+          })
+          .catch((err) => {
+           if(err.response.status=== 401){
+            toast.error(err.response.data.message);
+           }
+           
+          });
+      
+    } catch (error) {
+
+      console.log(error);
+    }
+  }
   return (
+    <>
     <div className=' h-[calc(100svh-3rem)] flex justify-center items-center'>
       <section id='login' className='w-1/3 p-8 flex flex-col justify-center rounded-lg h-min '>
          <h1 className='font-bold text-gray-600 text-2xl '>LOGIN</h1>
-         <input type="email" placeholder='Email' name=""  className='outline-myColor p-2 mt-3 border-solid border border-gray-300 rounded-lg'/>
-         <input type="password" placeholder='Password' name=""  className='outline-myColor p-2 mt-3 border-solid border border-gray-300 rounded-lg'/>
+         <input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder='Email' name=""  className='outline-myColor p-2 mt-3 border-solid border border-gray-300 rounded-lg'/>
+         <input onChange={(e)=>setPassword(e.target.value)} type="password" placeholder='Password' name=""  className='outline-myColor p-2 mt-3 border-solid border border-gray-300 rounded-lg'/>
          <span className='mt-4 mb-3 flex items-center flex-row'>
           <input className='' type="checkbox" name='' /><p className='ml-2 text-gray-500'>Remember me ?</p>
          </span>
-         <button id='sha' className=' bg-myColor hover:bg-light rounded-lg p-1 text-white text-1xl' >LOGIN</button>
+         <button id='sha' onClick={UserLogin} className=' bg-myColor hover:bg-light rounded-lg p-1 text-white text-1xl' >LOGIN</button>
          <p  className=' mb-9  flex justify-end text-gray-500 mt-1'><Link href={'#'} className='hover:text-myColor transition delay-50'>Forgot Password?</Link></p>
         <div className='relative flex flex-row justify-center items-center mb-10'>
           <p className='absolute bg-white border-solid border border-gray-300 rounded-lg p-1 text-xl text-gray-400'>OR</p>
@@ -41,6 +81,9 @@ const Page = () => {
          <span className= ' mt-6 flex flex-row justify-center'><p>Need an account?</p><Link href={'./signup'} className='text-myColor transition delay-100 underline pl-1'>SIGN UP</Link></span>
       </section>
     </div>
+    <Toaster richColors />
+    </>
+
   )
 }
 

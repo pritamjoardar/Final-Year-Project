@@ -4,6 +4,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import UserContext from '@/context/UserContext';
+import { useEffect } from 'react';
 const UserDetails = () => {
   const {user,setUser} = useContext(UserContext)
 const router = useRouter();
@@ -14,7 +15,7 @@ const router = useRouter();
             .then((response) => {
                 toast.success(response.data.message);
                 setUser(false);
-                router.push('/');
+                router.push('/login');
             })
             .catch((err)=>{
                 console.log(err);
