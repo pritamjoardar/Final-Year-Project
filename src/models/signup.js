@@ -3,7 +3,6 @@ const signupSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        
     },
     email: {
         type: String,
@@ -20,4 +19,4 @@ const signupSchema = new mongoose.Schema({
 });
 mongoose.models = {};
 const Signup = mongoose.models.signup || mongoose.model('signup', signupSchema);  
-export default  Signup;
+export default Signup;

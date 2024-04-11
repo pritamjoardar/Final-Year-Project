@@ -27,6 +27,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // require('tailwindcss'),
+  ],
 }
 export default config

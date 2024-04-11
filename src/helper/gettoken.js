@@ -1,7 +1,5 @@
-import { NextResponse,NextRequest } from "next/server";
-
-
 import jwt from "jsonwebtoken";
+
 export const getDataFromToken = (NextRequest)=>{
     try {
         const token = NextRequest.cookies.get('notes')?.value || '';

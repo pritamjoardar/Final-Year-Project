@@ -2,8 +2,9 @@ import { NextRequest,NextResponse } from "next/server";
 import {ConnectDB}  from "../../../utils/Connect"; 
 import Signup from  "../../../../models/signup.js";
 import { CookieSeter, GenerateToken } from "../../../utils/cookieSeter";
+
 export async function POST(request:NextRequest){
-    await  ConnectDB();
+    await ConnectDB();
     const Data = await request.json();
     const {name, email, password,value} = Data;
     const Email =await Signup.findOne({email});
@@ -19,8 +20,7 @@ export async function POST(request:NextRequest){
             CookieSeter(res,token,true)  ;
             return res;
         }else{
-            return NextResponse.json({message:"Email is already exist"},{status:400});     
-
+            return NextResponse.json({message:"Email is already exist"},{status:400});
         }         
     }
 }
