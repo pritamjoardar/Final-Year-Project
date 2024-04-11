@@ -70,7 +70,7 @@ const Page = () => {
     }
 
     return (
-        <>
+        <> 
             <div className="container mx-auto my-3">
                 <div className='flex align-center'>
                     <span className='text-4xl'>Announcements</span>
