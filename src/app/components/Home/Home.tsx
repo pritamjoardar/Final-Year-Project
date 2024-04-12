@@ -6,8 +6,31 @@ import axios from 'axios';
 import "../../style/shadow.scss";
 import { pdfjs } from 'react-pdf';
 import { Document, Page } from 'react-pdf';
-import { IoMdCloudDownload } from "react-icons/io";
+import { MdEmail } from "react-icons/md";
+import { IoLogoWhatsapp } from "react-icons/io";
 import Announcement from '../buttons/Announcement';
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    GabShareButton,
+    HatenaShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    OKShareButton,
+    PinterestShareButton,
+    PocketShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    ViberShareButton,
+    VKShareButton,
+    WhatsappShareButton,
+    WorkplaceShareButton,
+  } from "react-share";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.js',
     import.meta.url,
@@ -58,13 +81,20 @@ const Home = () => {
 
             <div className="flex flex-wrap  justify-center">
            {notesData.map(({url},index)=>(
-                <div className='border w-min p-2 bg-gray-300 m-2'>
+                <div className='border w-min p-2 bg-gray-300 m-2' key={index}>
                 <Link href={url} target='_blank'>
                 <Document file={url} onLoadSuccess={onDocumentLoadSuccess} >
                 <Page className= '' width={300} pageNumber={pageNumber} renderTextLayer={false} renderAnnotationLayer={false}/>
                 </Document>
                 </Link>
-                <div className="flex justify-between"><p></p><a href={url} download className='text-blue-900 text-3xl'><IoMdCloudDownload /></a></div>
+                <div className="flex justify-between">
+                    <p></p>
+                    <div className="flex gap-1">
+                    <WhatsappShareButton url={url}><button className = "text-[#128C7E] text-3xl"><IoLogoWhatsapp /></button></WhatsappShareButton>
+                    <EmailShareButton url={url}><button className = "text-[#c71610] text-3xl"><MdEmail /></button></EmailShareButton>
+                    </div>
+                    
+                    </div>
                 
                 </div>
            ))}

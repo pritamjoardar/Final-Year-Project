@@ -43,7 +43,7 @@ useLayoutEffect(()=>{
         </section>
           <section className=' flex flex-row items-center' >
           <Link href={'/'} className=' hover:text-myColor px-2 transition delay-100 hidden md:block'>Home</Link>
-          <Link href={''} className=' hover:text-myColor px-2 transition delay-100 hidden md:block'>About Us</Link>
+          <Link href={'/aboutus'} className=' hover:text-myColor px-2 transition delay-100 hidden md:block'>About Us</Link>
           <Link href={'../../login'} className={user?'hidden':'px-2 hover:text-myColor transition delay-100'}>Login</Link>
           <Link href={'../../signup'} className={user?'hidden':'bg-myColor p-1 hover:bg-light rounded-lg px-2 text-white'}><span>Sign Up</span></Link>
           <div onClick={()=>setDropCkick(!dropCkick)}  className={user?'cursor-pointer flex px-2 border-myColor border rounded-full tetx-4xl text-myColor':'hidden'}><p>{userdata.email}</p><span className=' flex items-center text-lg'><RiArrowDropDownLine /></span></div>

@@ -12,8 +12,8 @@ export const routes = [
     Icon: BiHomeAlt2,
   },
   {
-    title: "About",
-    href: "#",
+    title: "About Us",
+    href: "/aboutus",
     Icon: FiSearch,
   },
 
