@@ -6,6 +6,8 @@ import UserDetails from './userDetails';
 import axios from 'axios';
 import UserContext from '@/context/UserContext';
 import { NavMobile } from '../menu/nav-mobile';
+import Image from 'next/image';
+import Logo from "../../assets/logo.jpg"
 const Navbar = () => {
   const {user,setUser} = useContext(UserContext)
   // const [user,setUser] = useState(false);
@@ -35,7 +37,10 @@ useLayoutEffect(()=>{
 },[user,setDropCkick]);
     return (
       <>
-      <nav className=' flex justify-end items-baseline p-2 border-b-solid border border-gray-200 ' >
+      <nav className=' flex justify-between items-center p-2 border-b-solid border border-gray-200 ' >
+        <section className=''>
+          <Image src={Logo} width={200} height={200} alt="Picture of the author"></Image>
+        </section>
           <section className=' flex flex-row items-center' >
           <Link href={'/'} className=' hover:text-myColor px-2 transition delay-100 hidden md:block'>Home</Link>
           <Link href={''} className=' hover:text-myColor px-2 transition delay-100 hidden md:block'>About Us</Link>
