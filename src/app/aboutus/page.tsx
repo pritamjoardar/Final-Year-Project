@@ -16,7 +16,7 @@ const Page = () => {
         <h1 className='font-bold text-2xl'>Our Mission</h1>
         <p>At NotesFlex&#44; our mission is to democratize education and empower individuals to learn&#44; grow&#44; and succeed&#46; By fostering a culture of knowledge sharing and collaboration&#44; we strive to make learning accessible&#44; inclusive&#44; and enjoyable for all&#46;</p>
         <h1 className='font-bold text-2xl'>Join Our Community</h1>
-        <p>Whether you're a student&#44; educator&#44; professional&#44; or lifelong learner&#44; you&apos;re invited to join our vibrant community&#46; Connect with like-minded individuals&#44; contribute your expertise&#44; and embark on a journey of lifelong learning with NotesFlex&#46;</p>
+        <p>Whether you&apos;re a student&#44; educator&#44; professional&#44; or lifelong learner&#44; you&apos;re invited to join our vibrant community&#46; Connect with like-minded individuals&#44; contribute your expertise&#44; and embark on a journey of lifelong learning with NotesFlex&#46;</p>
         <h1 className='font-bold text-2xl'>Get Started Today</h1>
         <p>Ready to embark on your learning journey? Join NotesFlex today and be part of a thriving community passionate about knowledge sharing&#44; collaboration&#44; and growth&#46;</p>
     </div>
