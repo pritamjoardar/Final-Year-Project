@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+"use client"
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { FaUpload } from "react-icons/fa6";
 
 interface UploadResponse {
@@ -9,22 +10,19 @@ const Page = () => {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null); // this is your image url
+  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);//this is your image url
   const [fileType, setFileType] = useState<'image' | 'pdf' | null>(null);
   const [userData,setUserData] = useState<string | any>(['']);
 
-  useEffect(() => {
-    fetch('/api/users/me')
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
+  useEffect(()=>{
+      fetch('/api/users/me').
+      then((res)=>{
+       return res.json()
+      }).then((data)=>{
         setUserData(data);
-      });
-  }, []);
-
-  console.log('userData from uploadnotes', userData);
-
+      })
+   },[]) 
+    console.log('userDAta from uploadnotes',userData);
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
@@ -47,11 +45,30 @@ const Page = () => {
         body: formData,
       });
 
+
+            const data: UploadResponse = await response.json();
+            setUploadedUrl(data.url);
+            if (data.url.endsWith('.pdf')) {
+                setFileType('pdf');
+              } else {
+                setFileType('image');
+              }
+
+        } catch (error) {
+            console.error("Error uploading file:", error);
+            setUploadError("Failed to upload file");
+        } finally {
+            setUploading(false);
+        }
+    };
+    console.log("image Url",uploadedUrl);
+
       if (!response.ok) {
         throw new Error("Failed to upload file");
       }
 
       const data: UploadResponse = await response.json();
+
 
       setUploadedUrl(data.url);
       console.log("image Url", uploadedUrl);
@@ -87,6 +104,7 @@ const Page = () => {
     } finally {
       setUploading(false);
     }
+  
   };
 
   return (
@@ -140,4 +158,4 @@ const Page = () => {
   );
 }
 
-export default Page;
+export default Page
