@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
         const result: UploadApiResponse = await cloudinary.uploader.upload(`data:${file.type};base64,${base64String}`, {
             folder: "uploads", 
         });
+        console.log(result.secure_url);
         return NextResponse.json({ url: result.secure_url }, { status: 200 });
     }  catch (error: any){
         console.error("Error uploading file to Cloudinary:", error);

@@ -1,23 +1,27 @@
 const mongoose = require('mongoose');
-const signupSchema = new mongoose.Schema({
-    name: {
+
+const uploadSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true,
     },
-    email: {
+
+    tag: {
         type: String,
         required: true,
     },
-    password: {
+
+    url: {
         type: String,
         required: true
     },
-    value: {
-        type: String,
+    
+    shere: {
+        type: Number,
         required: true
     },
 });
 
 mongoose.models = {};
-const Signup = mongoose.models.signup || mongoose.model('signup', signupSchema);  
-export default Signup;
+const Upload = mongoose.models.signup || mongoose.model('upload', uploadSchema);  
+export default Upload;

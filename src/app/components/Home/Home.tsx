@@ -92,10 +92,8 @@ const Home = () => {
                     <div className="flex gap-1">
                     <WhatsappShareButton url={url}><button className = "text-[#128C7E] text-3xl"><IoLogoWhatsapp /></button></WhatsappShareButton>
                     <EmailShareButton url={url}><button className = "text-[#c71610] text-3xl"><MdEmail /></button></EmailShareButton>
-                    </div>
-                    
-                    </div>
-                
+                    </div>                    
+                    </div>                
                 </div>
            ))}
            </div>

@@ -41,7 +41,6 @@ const Page = () => {
 
             const data: UploadResponse = await response.json();
             setUploadedUrl(data.url);
-            console.log("image Url",uploadedUrl);
             if (data.url.endsWith('.pdf')) {
                 setFileType('pdf');
               } else {
@@ -55,6 +54,7 @@ const Page = () => {
             setUploading(false);
         }
     };
+    console.log("image Url",uploadedUrl);
 
     return (
         <div className='w-full h-screen flex flex-col lg:flex-row items-center justify-center '>
