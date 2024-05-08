@@ -109,7 +109,7 @@ const Page = () => {
   }
   return (
     <div className='h-[calc(100svh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center'>
-    <div id='login' className="grid w-full max-w-xs items-center gap-1.5 p-5 rounded-md">
+    <div id='login' className="grid  items-center gap-1.5 p-5 rounded-md md:w-1/3">
       <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Choose File</label>
       <input accept="application/pdf" onChange={handleFileChange} id="picture" type="file" className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"/>
       <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Title</label>
