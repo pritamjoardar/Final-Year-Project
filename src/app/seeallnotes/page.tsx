@@ -1,12 +1,25 @@
-import React from 'react'
+"use client"
+import React, { useState, useEffect } from 'react';
 
-const page = async () => {
-    let data = await fetch(`https://final-year-project-blond.vercel.app/api/getsavednotes`);
-    let data1 = await data.json();
+interface Note {
+    _id: string;
+    url: string;
+}
+
+const Page = () => {
+    const [data, setData] = useState<Note[]>([]);
+
+    useEffect(() => {
+        fetch(`/api/getsavednotes`)
+            .then(response => response.json())
+            .then(jsonData => setData(jsonData))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []); // Empty dependency array means this effect runs once after the component mounts
+
     return (
         <div className='min-h-[100vh] flex flex-col gap-3 bg-slate-500 '>
             {
-                data1.map((value:any) => (
+               data && data.map((value: Note) => (
                     <div key={value._id}>                        
                         { value.url.endsWith('.pdf') ? (
                             <embed
@@ -17,19 +30,18 @@ const page = async () => {
                             />
                         ) : (
                             <div>
-                            <img
-                                src={value.url}
-                                alt="Uploaded file"
-                                className="w-[300px] lg:w-[400px] h-[200px] rounded-[10px]"
-                            />
-                        </div>
-                        )
-                          }
+                                <img
+                                    src={value.url}
+                                    alt="Uploaded file"
+                                    className="w-[300px] lg:w-[400px] h-[200px] rounded-[10px]"
+                                />
+                            </div>
+                        )}
                     </div>
                 ))
             }
         </div>
-    )
-}
+    );
+};
 
-export default page
+export default Page;
