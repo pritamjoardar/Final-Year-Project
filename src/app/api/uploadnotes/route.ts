@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
         api_key: process.env.API_KEY, 
         api_secret: process.env.API_SECRET
     });
+
     const file = formData.get("file") as File;
       console.log("File",file);
 
@@ -28,3 +29,4 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: " Internal Server Error " }, { status: 500 });
     }
 }
+
