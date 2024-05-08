@@ -1,7 +1,7 @@
 import React from 'react'
 
 const page = async () => {
-    let data = await fetch('http://localhost:3000/api/getsavednotes');
+    let data = await fetch(`https://final-year-project-blond.vercel.app/api/getsavednotes`);
     let data1 = await data.json();
     return (
         <div className='min-h-[100vh] flex flex-col gap-3 bg-slate-500 '>
