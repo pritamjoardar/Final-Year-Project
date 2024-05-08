@@ -1,7 +1,7 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { FaUpload } from "react-icons/fa6";
-
+import "./upload.scss";
+import { Toaster, toast } from 'sonner';
 interface UploadResponse {
   url: string;
 }
@@ -13,6 +13,10 @@ const Page = () => {
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(null); // this is your image url
   const [fileType, setFileType] = useState<'image' | 'pdf' | null>(null);
   const [userData,setUserData] = useState<string | any>(['']);
+  const [tagValue,setTagValue] = useState<string>("");
+  const [tags,setTags] = useState<string[]>([]);
+  const [title,setTitle] = useState<string>("");
+
 
   useEffect(() => {
     fetch('/api/users/me')
@@ -24,7 +28,6 @@ const Page = () => {
       });
   }, []);
 
-  console.log('userData from uploadnotes', userData);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -35,7 +38,10 @@ const Page = () => {
 
   const handleUpload = async () => {
     try {
-      if (!file) return;
+      if (!file || tags.length==0 || !title ){
+        toast.error("Fields are empty");
+        return;
+      } 
 
       setUploading(true);
       setUploadError(null);
@@ -64,14 +70,14 @@ const Page = () => {
           body: JSON.stringify({
             "author": userData?._id,
             "author_name":userData?.name,
-            "title": "",
-            "tag": "",
+            "title": title,
+            "tag": tags,
             "url": data.url,
             "share": 0,
             "favorite": 0,
             "like": 0,
             "views": 0,
-            "comments": "add your comment"
+            "comments": ""
           })
         });
       }
@@ -89,21 +95,42 @@ const Page = () => {
       setUploading(false);
     }
   };
+  const addTags = (e:any) =>{
+    console.log(e);
+    if(e.keyCode === 13 && tagValue){
+      setTags([...tags,tagValue]);
+      setTagValue("");
+    }
+  }
 
+  const deleteTag = (val:any) =>{
+    let remTag = tags.filter((t)=>t!==val);
+    setTags(remTag);
+  }
   return (
-    <div className='w-full h-screen flex flex-col lg:flex-row items-center justify-center '>
-      <div className='w-[80%] lg:w-[40%] h-[40%] lg:[40%] bg-orange-500 rounded-[10px] flex items-center justify-center'>
-        <div >
-          <div className='flex flex-col gap-4 items-center'>
-            <div className='text-[45px] text-white'>
-              <FaUpload />
-            </div>
+    <div className='h-[calc(100svh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center'>
+    <div id='login' className="grid w-full max-w-xs items-center gap-1.5 p-5 rounded-md">
+      <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Choose File</label>
+      <input accept="application/pdf" onChange={handleFileChange} id="picture" type="file" className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"/>
+      <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Title</label>
+      <input  id="picture" onChange={(e)=>setTitle(e.target.value)} type="text" className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"/>
+      <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Tags</label>
+      <div className="flex gap-1 flex-wrap">
+        {tags.map((item,index)=>(
+          <>
+          <button className='border p-1 bg-slate-300' key={index} onClick={()=>deleteTag(item)}>{item}
+          <span className="text-red-500 font-bold ml-2 bg-white p-1 rounded-full">x</span>
+          </button>
+          </>
+        ))}
+      </div>
+      <input value={tagValue} placeholder='type your tag here' id="picture" onChange={(e)=>setTagValue(e.target.value)} onKeyDown={addTags} type="text" className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium"/>
 
-            <input type="file" onChange={handleFileChange} className='ml-[70px]' />
+          <div className='flex flex-col gap-4 items-center'>
             {uploadedUrl &&
               <p className='text-green-500 text-[20px]'>File uploaded successfully! ✔</p>
             }
-            <button onClick={handleUpload} disabled={!file || uploading} className='bg-black mr-[20px] border-[2px] border-white px-[40px] lg:px-[60px] text-white py-[17px] rounded-[10px] text-[26px] cursor-pointer flex gap-4'>
+            <button onClick={handleUpload} disabled={!file || uploading} className='bg-myColor w-full flex justify-center border-[2px] text-white font-bold rounded-lg border-white p-2  cursor-pointer gap-4'>
               {
                 uploading ? <>
                   <p>Uploading...</p>
@@ -112,12 +139,9 @@ const Page = () => {
                 </> : "Upload"
               }
             </button>
-
           </div>
-        </div>
-        {uploadError && <p className='text-red-500 text-[20px] '>{uploadError}</p>}
-
-      </div>
+          {uploadError && <p className='text-red-500 text-[20px] '>{uploadError}</p>}
+    </div>
       {uploadedUrl && (
         <div>
           {fileType === 'image' && (
@@ -129,14 +153,15 @@ const Page = () => {
           )}
         </div>
       )}
-      {fileType === 'pdf' && uploadedUrl && (
+      {/* {fileType === 'pdf' && uploadedUrl && (
         <embed
           src={uploadedUrl}
           type="application/pdf"
           width="100%"
           height="500px"
         />
-      )}
+      )} */}
+      <Toaster richColors />
     </div>
   );
 }

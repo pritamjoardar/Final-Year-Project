@@ -10,7 +10,8 @@ let notesSchema = new mongoose.Schema({
         type:String
     },
     title: {
-        type: String
+        type: String,
+        required: true
     },
     tag: {
         type: [String],

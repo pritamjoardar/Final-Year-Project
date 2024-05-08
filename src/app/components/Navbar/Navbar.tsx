@@ -22,7 +22,7 @@ const getData = async() =>{
       // console.log(res);
        if(res.status === 200){
         setUser(true);
-        console.log("userData",res.data);
+        // console.log("userData",res.data);
        await setUserData(res.data);
 
        }
@@ -50,7 +50,7 @@ useLayoutEffect(()=>{
           <Link href={'/seeallnotes'} className=' hover:text-myColor px-2 transition delay-100 hidden md:block'>Notes</Link>
           <Link href={'../../login'} className={user?'hidden':'px-2 hover:text-myColor transition delay-100'}>Login</Link>
           <Link href={'../../signup'} className={user?'hidden':'bg-myColor p-1 hover:bg-light rounded-lg px-2 text-white'}><span>Sign Up</span></Link>
-          <div onClick={()=>setDropCkick(!dropCkick)}  className={user?'cursor-pointer flex px-2 border-myColor border rounded-full tetx-4xl text-myColor':'hidden'}><p>{userdata.email}</p><span className=' flex items-center text-lg'><RiArrowDropDownLine /></span></div>
+          <div onClick={()=>setDropCkick(!dropCkick)}  className={user?'cursor-pointer flex px-2 border-myColor border rounded-full tetx-4xl text-myColor':'hidden'}><p>{userdata?.email}</p><span className=' flex items-center text-lg'><RiArrowDropDownLine /></span></div>
           <NavMobile/>
            
           </section>       

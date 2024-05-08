@@ -35,6 +35,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.js',
     import.meta.url,
   ).toString();
+
 const Home = () => {
     const [numPages, setNumPages] = useState<number>();
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -67,7 +68,6 @@ const Home = () => {
         useEffect(()=>{
             getNotes();
         },[])
-     console.log(notesData);
     return (
         <>
             {/* For search */}

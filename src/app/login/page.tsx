@@ -44,7 +44,7 @@ const Page = () => {
   }
   return (
     <>
-      <div className=' h-[calc(100svh-3rem)] flex justify-center items-center'>
+      <div className=' h-[calc(100svh-4rem)] flex justify-center items-center'>
         <section id='login' className='w-1/3 p-8 flex flex-col justify-center rounded-lg h-min '>
           <h1 className='font-bold text-gray-600 text-2xl '>LOGIN</h1>
           <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Email' name="" className='outline-myColor p-2 mt-3 border-solid border border-gray-300 rounded-lg' />

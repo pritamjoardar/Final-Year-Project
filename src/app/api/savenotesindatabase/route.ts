@@ -30,7 +30,6 @@ export async function POST(request: NextRequest) {
 
         // Save the note to MongoDB
         await newNote.save();
-
         // Return success response
         return NextResponse.json({ message: "Note saved successfully" });
     } catch (error) {
