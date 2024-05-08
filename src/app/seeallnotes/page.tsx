@@ -6,9 +6,8 @@ const page = async () => {
     return (
         <div className='min-h-[100vh] flex flex-col gap-3 bg-slate-500 '>
             {
-               data1 && data1?.map((value:any) => (
-                    <div>
-                        
+                data1.map((value:any) => (
+                    <div key={value._id}>                        
                         { value.url.endsWith('.pdf') ? (
                             <embed
                                 src={value.url}
